@@ -21,6 +21,14 @@ db.serialize(() => {
       nombre TEXT NOT NULL
     )
   `);
+  // Crear tabla usuarios
+  db.run(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      correo TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
+    )
+  `);
 
   // 2. Insertar estados si no existen
   db.get('SELECT COUNT(*) as count FROM estado', (err, row) => {
@@ -30,6 +38,13 @@ db.serialize(() => {
         if (err) console.error(err);
       });
     }
+
+  db.get('SELECT COUNT(*) as count FROM usuarios', (err, row) => {
+    if (row.count === 0) {
+      db.run(`INSERT INTO usuarios (correo, password) VALUES (?, ?)`, 
+      ['admin@admin.com', 'admin123']);
+    } 
+  });
 
     // 3. Crear tabla productos después que estado existe
     db.run(`CREATE TABLE IF NOT EXISTS productos (
@@ -282,6 +297,27 @@ app.get('/api/productos/paginados', (req, res) => {
     });
   });
 });
+
+app.post('/api/login', (req, res) => {
+  const { correo, password } = req.body;
+
+  db.get(
+    'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
+    [correo, password],
+    (err, user) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error en el servidor' });
+      }
+
+      if (!user) {
+        return res.status(401).json({ error: 'Credenciales incorrectas' });
+      }
+
+      res.json({ success: true, mensaje: 'Login exitoso' });
+    }
+  );
+});
+
 
 
 app.listen(PORT, () => {
