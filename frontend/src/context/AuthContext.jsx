@@ -6,16 +6,23 @@ export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Mantener login aunque se recargue la página
   useEffect(() => {
     const storedUser = localStorage.getItem("usuario");
-    if (storedUser) {
-      setUsuario(JSON.parse(storedUser));
-      setIsAuthenticated(true);
+
+    if (storedUser && storedUser !== "undefined") {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUsuario(parsedUser);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Error al parsear usuario:", error);
+        localStorage.removeItem("usuario");
+      }
+    } else {
+      localStorage.removeItem("usuario");
     }
   }, []);
 
-  // ⬅️ Guardar usuario globalmente
   const login = (userData) => {
     setUsuario(userData);
     setIsAuthenticated(true);
@@ -35,5 +42,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook para usar más fácil el contexto
 export const useAuth = () => useContext(AuthContext);

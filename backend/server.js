@@ -307,21 +307,37 @@ app.get('/api/productos/paginados', (req, res) => {
 app.post('/api/login', (req, res) => {
   const { correo, password } = req.body;
 
-  db.get(
-    'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
-    [correo, password],
-    (err, user) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error en el servidor' });
-      }
+  console.log('Intentando login con:', correo, password);
 
-      if (!user) {
-        return res.status(401).json({ error: 'Credenciales incorrectas' });
-      }
-
-      res.json({ success: true, mensaje: 'Login exitoso' });
+db.get(
+  'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
+  [correo, password],
+  (err, user) => {
+    if (err) {
+      console.log('Error en la consulta:', err);
+      return res.status(500).json({ error: 'Error en el servidor' });
     }
-  );
+
+    console.log('Usuario encontrado en callback:', user);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
+    }
+
+    console.log(`Login exitoso: ${user.nombres} ${user.apellidos}`);
+
+    res.json({
+      success: true,
+      usuario: {
+        id: user.id,
+        nombres: user.nombres,
+        apellidos: user.apellidos,
+        correo: user.correo
+      }
+    });
+  }
+);
+
 });
 
 app.get('/api/usuarios', (req, res) => {
