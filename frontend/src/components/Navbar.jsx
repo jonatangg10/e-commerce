@@ -102,9 +102,9 @@ function Navbar() {
           </button>
 
           <div className="relative flex items-center" ref={dropdownRef}>
-            <span className={`text-gray-800 ${isMobile ? "text-sm" : "text-sm font-medium"}`}>
+            {/* <span className={`text-gray-800 ${isMobile ? "text-sm" : "text-sm font-medium"}`}>
               {isMobile ? primerNombre : userName}
-            </span>
+            </span> */}
 
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -123,6 +123,16 @@ function Navbar() {
                   <WrenchScrewdriverIcon className="h-4 w-4 mr-2" />
                   Administrar
                 </Link>
+
+                <Link
+                  to="/login"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <WrenchScrewdriverIcon className="h-4 w-4 mr-2" />
+                  Prueba
+                </Link>
+
                 <button
                   onClick={handleSettings}
                   className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
