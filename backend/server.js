@@ -25,8 +25,12 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS usuarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombres TEXT NOT NULL,
+      apellidos TEXT NOT NULL,
       correo TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      rol TEXT NOT NULL DEFAULT 'user',
+      fecha_creacion TEXT DEFAULT (datetime('now', '-5 hours'))
     )
   `);
 
@@ -41,9 +45,11 @@ db.serialize(() => {
 
   db.get('SELECT COUNT(*) as count FROM usuarios', (err, row) => {
     if (row.count === 0) {
-      db.run(`INSERT INTO usuarios (correo, password) VALUES (?, ?)`, 
-      ['admin@admin.com', 'admin123']);
-    } 
+      db.run(
+        `INSERT INTO usuarios (nombres, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)`,
+        ['Administrador', 'Del Sistema', 'admin@admin.com', 'admin123', 'admin']
+      );
+    }
   });
 
     // 3. Crear tabla productos después que estado existe
@@ -318,6 +324,18 @@ app.post('/api/login', (req, res) => {
   );
 });
 
+app.get('/api/usuarios', (req, res) => {
+  db.all(
+    'SELECT id, nombres, apellidos, correo, rol, fecha_creacion FROM usuarios',
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error al obtener usuarios' });
+      }
+
+      res.json({ success: true, usuarios: rows });
+    }
+  );
+});
 
 
 app.listen(PORT, () => {
