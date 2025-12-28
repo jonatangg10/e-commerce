@@ -332,7 +332,9 @@ db.get(
         id: user.id,
         nombres: user.nombres,
         apellidos: user.apellidos,
-        correo: user.correo
+        correo: user.correo,
+        rol: user.rol,
+        fecha_creacion: user.fecha_creacion
       }
     });
   }
