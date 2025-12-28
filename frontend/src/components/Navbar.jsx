@@ -14,14 +14,15 @@ import { useAuth } from "../context/AuthContext";
 const theme = {
   textPrimary: "text-gray-900",
   textMuted: "text-gray-500",
-  accentText: "text-blue-600",   // Cambiado a azul
-  accentBg: "bg-blue-600",       // Cambiado a azul
+  accentText: "text-blue-600",
+  accentBg: "bg-blue-600",
   accentHover: "hover:text-blue-700",
   transition: "transition-all duration-300 ease-in-out",
 };
 
 function Navbar() {
-  const { carrito, setCarritoVisible } = useContext(CarritoContext);
+  // Extraemos categorias del CarritoContext
+  const { carrito, setCarritoVisible, categorias } = useContext(CarritoContext);
   const { isAuthenticated, logout, usuario } = useAuth();
   const navigate = useNavigate();
 
@@ -34,7 +35,6 @@ function Navbar() {
   const userMenuRef = useRef(null);
   const totalItems = carrito.reduce((t, i) => t + i.cantidad, 0);
 
-  // VALIDACIÓN DE ADMIN POR CORREO (Basado en tu consola)
   const isAdmin = usuario?.correo === "admin@admin.com";
 
   const handleMouseEnter = (menuName) => {
@@ -67,16 +67,18 @@ function Navbar() {
     setTimeout(() => logout(), 50);
   };
 
+  // Mapeamos las categorías dinámicamente aquí
   const navLinks = [
     { name: "Inicio", path: "/" },
     {
       name: "Categorías",
-      dropdown: [
-        { name: "Electrónica", path: "/categorias/electronica" },
-        { name: "Hogar", path: "/categorias/hogar" },
-        { name: "Oficina", path: "/categorias/oficina" },
-        { name: "Aseo", path: "/categorias/aseo" },
-      ],
+      // Filtramos "todos" para que no aparezca en el desplegable
+      dropdown: categorias
+        .filter(cat => cat.toLowerCase() !== "todos") 
+        .map((cat) => ({
+          name: cat.charAt(0).toUpperCase() + cat.slice(1),
+          path: `/categorias/${cat.toLowerCase()}`,
+        })),
     },
     { name: "Ofertas", path: "/ofertas", highlight: true },
     {
@@ -124,7 +126,7 @@ function Navbar() {
                 onMouseLeave={handleMouseLeave}
               >
                 <div className="px-3 py-2">
-                  {link.path && (!link.auth || isAuthenticated) ? (
+                  {link.path && !link.dropdown && (!link.auth || isAuthenticated) ? (
                     <Link
                       to={link.path}
                       className={`text-sm font-medium ${theme.transition} ${
@@ -143,7 +145,7 @@ function Navbar() {
 
                 {link.dropdown && (
                   <div
-                    className={`absolute left-0 top-full w-48 pt-1 ${theme.transition} ${
+                    className={`absolute left-0 top-full min-w-[180px] pt-1 ${theme.transition} ${
                       openMenu === link.name 
                       ? "opacity-100 visible translate-y-0" 
                       : "opacity-0 invisible translate-y-2"
@@ -191,16 +193,15 @@ function Navbar() {
                        <p className="text-[10px] uppercase font-bold text-gray-400">Bienvenido</p>
                        <p className="text-sm font-bold text-gray-900 truncate">{`${usuario?.nombres?.split(" ")[0] || ""} ${usuario?.apellidos?.split(" ")[0] || ""}`}</p>
                     </div>
-                    {/* AHORA SÍ APARECERÁ PORQUE USAMOS isAdmin */}
                     {isAdmin && (
-                      <Link to="/admin" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Productos
-                      </Link>
-                    )}
-                    {isAdmin && (
-                      <Link to="/admin" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Usuarios
-                      </Link>
+                      <>
+                        <Link to="/admin-productos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                          <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Productos
+                        </Link>
+                        <Link to="/admin-users" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                          <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Usuarios
+                        </Link>
+                      </>
                     )}
                     <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
                       <ArrowRightOnRectangleIcon className="h-4 w-4 mr-3" /> Cerrar sesión
@@ -208,7 +209,6 @@ function Navbar() {
                   </>
                 ) : (
                   <div className="px-3 py-1">
-                    {/* BOTÓN INICIAR SESIÓN REFORMADO: Más limpio y profesional */}
                     <Link to="/login" className="flex items-center justify-center w-full py-2 border border-gray-200 rounded-md text-gray-900 text-sm font-semibold hover:bg-gray-50 transition-all shadow-sm">
                       Iniciar sesión
                     </Link>

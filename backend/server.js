@@ -73,9 +73,9 @@ db.serialize(() => {
           const stmt = db.prepare(`INSERT INTO productos (nombre, estado_id, precio, imagen, stock, etiqueta, categoria) VALUES (?, ?, ?, ?, ?, ?, ?)`);
           
           const productosEjemplo = [
-            ['Camiseta Android Studio', 1, 29.99, '/images/react.jpeg', 15, 'Nuevo', 'Android Dev'],
-            ['Taza Kotlin', 1, 12.50, '/images/Taza JavaScript.jpeg', 8, '-10%', 'Android Dev'],
-            ['Gorra MongoDB', 1, 19.00, '/images/Gorra Node.jpg', 20, '', 'Bases de Datos'],
+            ['Camiseta Android Studio', 1, 29.99, '/images/camisaandroidstudio.jpg', 15, 'Nuevo', 'Android Dev'],
+            ['Taza Kotlin', 1, 12.50, '/images/tazakotlin.jpg', 8, '-10%', 'Android Dev'],
+            ['Gorra MongoDB', 1, 19.00, '/images/gorramongodb.jpg', 20, '', 'Bases de Datos'],
             ['Sticker PostgreSQL', 1, 3.99, '/images/CSS.jpeg', 50, 'Nuevo', 'Bases de Datos'],
             ['Taza Café Programador', 1, 14.99, '/images/Taza JavaScript.jpeg', 30, 'Oferta', 'Cafeteria'],
             ['Termo Oficina', 1, 24.99, '/images/php.jpg', 12, 'Nuevo', 'Cafeteria'],
@@ -101,12 +101,11 @@ db.serialize(() => {
             ['Llavero Raspberry', 1, 7.99, '/images/CSS.jpeg', 35, '', 'Electrónica'],
             ['Libro Startups', 1, 18.99, '/images/php.jpg', 12, 'Nuevo', 'Emprendimiento'],
             ['Cuaderno Ideas', 1, 9.99, '/images/sql.jpg', 25, '', 'Emprendimiento'],
-            ['Camiseta CSS', 1, 24.99, '/images/react.jpeg', 18, 'Nuevo', 'Frontend'],
-            ['Gorra HTML5', 1, 17.99, '/images/Gorra Node.jpg', 15, '-10%', 'Frontend'],
+            ['Camiseta CSS', 1, 24.99, '/images/camisacss.jpg', 18, 'Nuevo', 'Frontend'],
             ['Taza Unity', 1, 16.99, '/images/Taza JavaScript.jpeg', 20, '', 'Game Dev'],
             ['Sticker Unreal', 1, 3.99, '/images/CSS.jpeg', 40, 'Nuevo', 'Game Dev'],
             ['Camiseta TensorFlow', 1, 32.99, '/images/php.jpg', 12, '-20%', 'Inteligencia Artificial'],
-            ['Gorra ChatGPT', 1, 25.99, '/images/sql.jpg', 15, '', 'Inteligencia Artificial'],
+            ['Gorra ChatGPT', 1, 25.99, '/images/gorrachatgpt.jpg', 15, '', 'Inteligencia Artificial'],
             ['Kit IoT Starter', 1, 59.99, '/images/react.jpeg', 8, 'Oferta', 'IoT'],
             ['Sticker Smart Home', 1, 4.50, '/images/CSS.jpeg', 30, 'Nuevo', 'IoT'],
             ['Taza GPT-4', 1, 18.99, '/images/Taza JavaScript.jpeg', 18, '', 'LLMs'],

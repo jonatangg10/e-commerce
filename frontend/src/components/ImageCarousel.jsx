@@ -9,7 +9,7 @@ function ImageCarousel() {
         showThumbs={false}
         autoPlay
         infiniteLoop
-        interval={5000}
+        interval={3000}
         showStatus={false}
         showArrows={true}
         stopOnHover={true}
@@ -87,7 +87,45 @@ function ImageCarousel() {
           </div>
         </div>
         
-        {/* Slide 3 */}
+        {/* Slide 3 - Oracle Linux */}
+        <div className="relative h-80 md:h-[690px] w-full">
+          <img 
+            src="/images/oracle-linux.png" 
+            alt="Oracle Linux Support" 
+            className="object-cover w-full h-full"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end pb-8 md:pb-12 px-6 md:px-12">
+            <div>
+              <span className=" text-white text-xs font-bold px-2 py-1 rounded mb-3 inline-block">Enterprise Edition</span>
+              <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 uppercase">Linux Oracle Solutions</h3>
+              <p className="text-white text-sm md:text-lg max-w-xl">Optimiza tu infraestructura con el rendimiento y la seguridad de Oracle Linux. Soporte especializado para entornos críticos.</p>
+              <button className="mt-4 bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-md font-medium transition-colors cursor-pointer">
+                Explorar Soluciones
+              </button>
+            </div>
+          </div>
+        </div>
+              
+        {/* Slide 4 - Azure Pipelines */}
+        <div className="relative h-80 md:h-[690px] w-full">
+          <img 
+            src="/images/azure-pipelines.png" 
+            alt="Azure DevOps Pipelines" 
+            className="object-cover w-full h-full"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end pb-8 md:pb-12 px-6 md:px-12">
+            <div>
+              <span className=" text-white text-xs font-bold px-2 py-1 rounded mb-3 inline-block">DevOps & CI/CD</span>
+              <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 uppercase">Azure Pipelines</h3>
+              <p className="text-white text-sm md:text-lg max-w-xl">Automatiza tus despliegues con Azure DevOps. Compila, prueba y despliega en cualquier nube con flujos de trabajo eficientes.</p>
+              <button className="mt-4 bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-md font-medium transition-colors cursor-pointer">
+                Ver Documentación
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Slide 5 */}
         <div className="relative h-80 md:h-[690px] w-full">
           <img 
             src="/images/hosting.png" 
