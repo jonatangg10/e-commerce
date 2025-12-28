@@ -47,7 +47,7 @@ db.serialize(() => {
     if (row.count === 0) {
       db.run(
         `INSERT INTO usuarios (nombres, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)`,
-        ['Administrador', 'Del Sistema', 'admin@admin.com', 'admin123', 'admin']
+        ['Jonatan Stiven', 'Gutierrez Nieto', 'admin@admin.com', 'admin123', 'admin']
       );
     }
   });
@@ -81,15 +81,15 @@ db.serialize(() => {
             ['Termo Oficina', 1, 24.99, '/images/php.jpg', 12, 'Nuevo', 'Cafeteria'],
             ['Llavero Logo', 1, 5.99, '/images/Gorra Node.jpg', 40, '', 'Merchandising'],
             ['Pin Oficial', 1, 3.50, '/images/CSS.jpeg', 60, 'Nuevo', 'Merchandising'],
-            ['Camiseta AWS', 1, 34.99, '/images/react.jpeg', 18, '-15%', 'Cloud Computing'],
+            ['Camiseta AWS', 1, 34.99, '/images/camisaaws.jpg', 18, '-15%', 'Cloud Computing'],
             ['Gorra Azure', 1, 22.00, '/images/Gorra Node.jpg', 15, '', 'Cloud Computing'],
             ['Sticker Open Source', 1, 2.99, '/images/CSS.jpeg', 100, 'Nuevo', 'Comunidad'],
             ['Camiseta Meetup', 1, 27.99, '/images/php.jpg', 20, '', 'Comunidad'],
-            ['Taza Docker', 1, 16.50, '/images/Taza JavaScript.jpeg', 25, 'Nuevo', 'Contenedores'],
-            ['Gorra Kubernetes', 1, 23.99, '/images/Gorra Node.jpg', 12, '-20%', 'Contenedores'],
+            ['Taza Docker', 1, 16.50, '/images/tazadocker.png', 25, 'Nuevo', 'Contenedores'],
+            ['Gorra Kubernetes', 1, 23.99, '/images/gorrakubernetes.jpg', 12, '-20%', 'Orquestación'],
             ['Camiseta Blockchain', 1, 31.99, '/images/react.jpeg', 10, '', 'Cripto'],
             ['Sticker Bitcoin', 1, 4.25, '/images/CSS.jpeg', 45, 'Nuevo', 'Cripto'],
-            ['Gorra Python', 1, 21.99, '/images/Gorra Node.jpg', 15, '', 'Data Science'],
+            ['Gorra Python', 1, 21.99, '/images/gorrapython.jpg', 15, '', 'Data Science'],
             ['Taza Pandas', 1, 15.75, '/images/Taza JavaScript.jpeg', 22, 'Nuevo', 'Data Science'],
             ['Camiseta React', 1, 28.99, '/images/react.jpeg', 25, '-10%', 'Desarrollo Web'],
             ['Sticker JavaScript', 1, 3.25, '/images/CSS.jpeg', 60, '', 'Desarrollo Web'],
@@ -119,8 +119,8 @@ db.serialize(() => {
             ['Sticker Three.js', 1, 4.25, '/images/CSS.jpeg', 30, 'Nuevo', 'Motores 3D'],
             ['Taza Linux', 1, 13.99, '/images/Taza JavaScript.jpeg', 25, '', 'Open Source'],
             ['Pin GitHub', 1, 5.99, '/images/php.jpg', 40, 'Nuevo', 'Open Source'],
-            ['Camiseta Kubernetes', 1, 31.99, '/images/sql.jpg', 10, '-20%', 'Orquestación'],
-            ['Gorra Docker Swarm', 1, 23.99, '/images/react.jpeg', 12, '', 'Orquestación'],
+            ['Camiseta Kubernetes', 1, 31.99, '/images/camisakubernetes.png', 10, '-20%', 'Orquestación'],
+            ['Gorra Docker Swarm', 1, 23.99, '/images/gorradocker.jpg', 12, '', 'Contenedores'],
             ['Kit Post-it', 1, 8.99, '/images/CSS.jpeg', 35, 'Nuevo', 'Productividad'],
             ['Libreta Premium', 1, 14.99, '/images/Taza JavaScript.jpeg', 20, '', 'Productividad'],
             ['Taza "Hello World"', 1, 11.99, '/images/Gorra Node.jpg', 30, 'Oferta', 'Programación'],

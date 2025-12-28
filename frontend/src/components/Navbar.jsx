@@ -189,12 +189,17 @@ function Navbar() {
                   <>
                     <div className="px-4 py-2 border-b border-gray-50 mb-1">
                        <p className="text-[10px] uppercase font-bold text-gray-400">Bienvenido</p>
-                       <p className="text-sm font-bold text-gray-900 truncate">{usuario?.nombres}</p>
+                       <p className="text-sm font-bold text-gray-900 truncate">{`${usuario?.nombres?.split(" ")[0] || ""} ${usuario?.apellidos?.split(" ")[0] || ""}`}</p>
                     </div>
                     {/* AHORA SÍ APARECERÁ PORQUE USAMOS isAdmin */}
                     {isAdmin && (
                       <Link to="/admin" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                        <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar
+                        <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Productos
+                      </Link>
+                    )}
+                    {isAdmin && (
+                      <Link to="/admin" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" /> Administrar Usuarios
                       </Link>
                     )}
                     <button onClick={handleLogout} className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
