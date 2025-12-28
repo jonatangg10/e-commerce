@@ -25,8 +25,12 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS usuarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombres TEXT NOT NULL,
+      apellidos TEXT NOT NULL,
       correo TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      rol TEXT NOT NULL DEFAULT 'user',
+      fecha_creacion TEXT DEFAULT (datetime('now', '-5 hours'))
     )
   `);
 
@@ -41,9 +45,11 @@ db.serialize(() => {
 
   db.get('SELECT COUNT(*) as count FROM usuarios', (err, row) => {
     if (row.count === 0) {
-      db.run(`INSERT INTO usuarios (correo, password) VALUES (?, ?)`, 
-      ['admin@admin.com', 'admin123']);
-    } 
+      db.run(
+        `INSERT INTO usuarios (nombres, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)`,
+        ['Administrador', 'Del Sistema', 'admin@admin.com', 'admin123', 'admin']
+      );
+    }
   });
 
     // 3. Crear tabla productos después que estado existe
@@ -301,23 +307,53 @@ app.get('/api/productos/paginados', (req, res) => {
 app.post('/api/login', (req, res) => {
   const { correo, password } = req.body;
 
-  db.get(
-    'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
-    [correo, password],
-    (err, user) => {
+  console.log('Intentando login con:', correo, password);
+
+db.get(
+  'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
+  [correo, password],
+  (err, user) => {
+    if (err) {
+      console.log('Error en la consulta:', err);
+      return res.status(500).json({ error: 'Error en el servidor' });
+    }
+
+    console.log('Usuario encontrado en callback:', user);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Credenciales incorrectas' });
+    }
+
+    console.log(`Login exitoso: ${user.nombres} ${user.apellidos}`);
+
+    res.json({
+      success: true,
+      usuario: {
+        id: user.id,
+        nombres: user.nombres,
+        apellidos: user.apellidos,
+        correo: user.correo,
+        rol: user.rol,
+        fecha_creacion: user.fecha_creacion
+      }
+    });
+  }
+);
+
+});
+
+app.get('/api/usuarios', (req, res) => {
+  db.all(
+    'SELECT id, nombres, apellidos, correo, rol, fecha_creacion FROM usuarios',
+    (err, rows) => {
       if (err) {
-        return res.status(500).json({ error: 'Error en el servidor' });
+        return res.status(500).json({ error: 'Error al obtener usuarios' });
       }
 
-      if (!user) {
-        return res.status(401).json({ error: 'Credenciales incorrectas' });
-      }
-
-      res.json({ success: true, mensaje: 'Login exitoso' });
+      res.json({ success: true, usuarios: rows });
     }
   );
 });
-
 
 
 app.listen(PORT, () => {
