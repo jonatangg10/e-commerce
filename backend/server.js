@@ -77,18 +77,10 @@ db.serialize(() => {
             ['Taza Kotlin', 1, 12.50, '/images/tazakotlin.jpg', 8, '-10%', 'Android Dev'],
             ['Gorra MongoDB', 1, 19.00, '/images/gorramongodb.jpg', 20, '', 'Bases de Datos'],
             ['Sticker PostgreSQL', 1, 3.99, '/images/CSS.jpeg', 50, 'Nuevo', 'Bases de Datos'],
-            ['Taza Café Programador', 1, 14.99, '/images/Taza JavaScript.jpeg', 30, 'Oferta', 'Cafeteria'],
-            ['Termo Oficina', 1, 24.99, '/images/php.jpg', 12, 'Nuevo', 'Cafeteria'],
-            ['Llavero Logo', 1, 5.99, '/images/Gorra Node.jpg', 40, '', 'Merchandising'],
-            ['Pin Oficial', 1, 3.50, '/images/CSS.jpeg', 60, 'Nuevo', 'Merchandising'],
             ['Camiseta AWS', 1, 34.99, '/images/camisaaws.jpg', 18, '-15%', 'Cloud Computing'],
             ['Gorra Azure', 1, 22.00, '/images/Gorra Node.jpg', 15, '', 'Cloud Computing'],
-            ['Sticker Open Source', 1, 2.99, '/images/CSS.jpeg', 100, 'Nuevo', 'Comunidad'],
-            ['Camiseta Meetup', 1, 27.99, '/images/php.jpg', 20, '', 'Comunidad'],
             ['Taza Docker', 1, 16.50, '/images/tazadocker.png', 25, 'Nuevo', 'Contenedores'],
             ['Gorra Kubernetes', 1, 23.99, '/images/gorrakubernetes.jpg', 12, '-20%', 'Orquestación'],
-            ['Camiseta Blockchain', 1, 31.99, '/images/react.jpeg', 10, '', 'Cripto'],
-            ['Sticker Bitcoin', 1, 4.25, '/images/CSS.jpeg', 45, 'Nuevo', 'Cripto'],
             ['Gorra Python', 1, 21.99, '/images/gorrapython.jpg', 15, '', 'Data Science'],
             ['Taza Pandas', 1, 15.75, '/images/Taza JavaScript.jpeg', 22, 'Nuevo', 'Data Science'],
             ['Camiseta React', 1, 28.99, '/images/react.jpeg', 25, '-10%', 'Desarrollo Web'],
@@ -99,11 +91,7 @@ db.serialize(() => {
             ['Taza Adobe XD', 1, 14.50, '/images/Taza JavaScript.jpeg', 20, 'Nuevo', 'Diseño UI/UX'],
             ['Kit Arduino', 1, 49.99, '/images/Gorra Node.jpg', 10, '-15%', 'Electrónica'],
             ['Llavero Raspberry', 1, 7.99, '/images/CSS.jpeg', 35, '', 'Electrónica'],
-            ['Libro Startups', 1, 18.99, '/images/php.jpg', 12, 'Nuevo', 'Emprendimiento'],
-            ['Cuaderno Ideas', 1, 9.99, '/images/sql.jpg', 25, '', 'Emprendimiento'],
             ['Camiseta CSS', 1, 24.99, '/images/camisacss.jpg', 18, 'Nuevo', 'Frontend'],
-            ['Taza Unity', 1, 16.99, '/images/Taza JavaScript.jpeg', 20, '', 'Game Dev'],
-            ['Sticker Unreal', 1, 3.99, '/images/CSS.jpeg', 40, 'Nuevo', 'Game Dev'],
             ['Camiseta TensorFlow', 1, 32.99, '/images/php.jpg', 12, '-20%', 'Inteligencia Artificial'],
             ['Gorra ChatGPT', 1, 25.99, '/images/gorrachatgpt.jpg', 15, '', 'Inteligencia Artificial'],
             ['Kit IoT Starter', 1, 59.99, '/images/react.jpeg', 8, 'Oferta', 'IoT'],
@@ -112,30 +100,18 @@ db.serialize(() => {
             ['Camiseta Bard', 1, 29.99, '/images/Gorra Node.jpg', 10, 'Nuevo', 'LLMs'],
             ['Libro ML', 1, 22.99, '/images/php.jpg', 12, '-15%', 'Machine Learning'],
             ['Sticker Scikit', 1, 3.75, '/images/sql.jpg', 35, '', 'Machine Learning'],
-            ['Gorra Flutter', 1, 20.99, '/images/react.jpeg', 15, 'Nuevo', 'Mobile'],
-            ['Taza React Native', 1, 15.50, '/images/Taza JavaScript.jpeg', 22, '', 'Mobile'],
-            ['Camiseta Blender', 1, 27.99, '/images/Gorra Node.jpg', 12, '-10%', 'Motores 3D'],
-            ['Sticker Three.js', 1, 4.25, '/images/CSS.jpeg', 30, 'Nuevo', 'Motores 3D'],
-            ['Taza Linux', 1, 13.99, '/images/Taza JavaScript.jpeg', 25, '', 'Open Source'],
-            ['Pin GitHub', 1, 5.99, '/images/php.jpg', 40, 'Nuevo', 'Open Source'],
             ['Camiseta Kubernetes', 1, 31.99, '/images/camisakubernetes.png', 10, '-20%', 'Orquestación'],
             ['Gorra Docker Swarm', 1, 23.99, '/images/gorradocker.jpg', 12, '', 'Contenedores'],
             ['Kit Post-it', 1, 8.99, '/images/CSS.jpeg', 35, 'Nuevo', 'Productividad'],
             ['Libreta Premium', 1, 14.99, '/images/Taza JavaScript.jpeg', 20, '', 'Productividad'],
             ['Taza "Hello World"', 1, 11.99, '/images/Gorra Node.jpg', 30, 'Oferta', 'Programación'],
             ['Camiseta Código', 1, 26.99, '/images/php.jpg', 18, 'Nuevo', 'Programación'],
-            ['Gorra Testing', 1, 19.99, '/images/sql.jpg', 15, '', 'QA'],
-            ['Sticker Jest', 1, 3.99, '/images/react.jpeg', 40, 'Nuevo', 'QA'],
             ['Camiseta TCP/IP', 1, 28.99, '/images/CSS.jpeg', 12, '-15%', 'Redes'],
             ['Taza Firewall', 1, 16.99, '/images/Taza JavaScript.jpeg', 20, '', 'Redes'],
-            ['Kit Robótica', 1, 69.99, '/images/Gorra Node.jpg', 8, 'Oferta', 'STEM'],
-            ['Libro Matemáticas', 1, 19.99, '/images/php.jpg', 15, 'Nuevo', 'STEM'],
             ['Taza Cloud', 1, 15.99, '/images/sql.jpg', 25, '', 'Servicios Cloud'],
-            ['Gorra Serverless', 1, 22.99, '/images/react.jpeg', 15, 'Nuevo', 'Servicios Cloud'],
-            ['Camiseta NGINX', 1, 27.99, '/images/CSS.jpeg', 12, '-10%', 'Servidores'],
-            ['Sticker Apache', 1, 3.50, '/images/Taza JavaScript.jpeg', 40, '', 'Servidores'],
-            ['Libro Testing', 1, 21.99, '/images/Gorra Node.jpg', 10, 'Nuevo', 'Testing'],
-            ['Taza QA', 1, 14.99, '/images/php.jpg', 20, '', 'Testing']
+            ['Gorra Serverless', 1, 22.99, '/images/gorraserverless.jpg', 15, 'Nuevo', 'Servicios Cloud'],
+            ['Camiseta NGINX', 1, 27.99, '/images/camisanginex.jpg', 12, '-10%', 'Servidores'],
+            ['Sticker Apache', 1, 3.50, '/images/stickerapache.png', 40, '', 'Servidores']
           ];
 
           productosEjemplo.forEach(p => {
@@ -354,6 +330,75 @@ app.get('/api/usuarios', (req, res) => {
   );
 });
 
+// Endpoint para obtener usuarios paginados y con búsqueda
+app.get('/api/usuarios/paginados', (req, res) => {
+  const { page = 1, pageSize = 10, search = '' } = req.query;
+  const offset = (page - 1) * pageSize;
+
+  const pageInt = Math.max(1, parseInt(page));
+  const pageSizeInt = Math.min(50, Math.max(1, parseInt(pageSize)));
+
+  let sqlBase = `FROM usuarios WHERE 1=1`;
+  const params = [];
+
+  if (search) {
+    sqlBase += ` AND (nombres LIKE ? OR apellidos LIKE ? OR correo LIKE ?)`;
+    params.push(`%${search}%`, `%${search}%`, `%${search}%`);
+  }
+
+  const sqlCount = `SELECT COUNT(*) as total ${sqlBase}`;
+  const sqlData = `SELECT id, nombres, apellidos, correo, rol, fecha_creacion ${sqlBase} ORDER BY nombres ASC LIMIT ? OFFSET ?`;
+
+  db.get(sqlCount, params, (err, countRow) => {
+    if (err) return res.status(500).json({ error: err.message });
+
+    const total = countRow.total;
+    db.all(sqlData, [...params, pageSizeInt, offset], (err, rows) => {
+      if (err) return res.status(500).json({ error: err.message });
+
+      res.json({
+        usuarios: rows,
+        total: total,
+        page: pageInt,
+        pageSize: pageSizeInt
+      });
+    });
+  });
+});
+
+// --- NUEVOS ENDPOINTS PARA GESTIÓN DE USUARIOS ---
+
+// Eliminar un usuario
+app.delete('/api/usuarios/:id', (req, res) => {
+  const { id } = req.params;
+
+  // Evitar que el admin principal se elimine a sí mismo (opcional pero recomendado)
+  db.run('DELETE FROM usuarios WHERE id = ? AND rol != "admin"', [id], function(err) {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Error al eliminar usuario' });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Usuario no encontrado o es un Administrador protegido' });
+    }
+    res.json({ success: true, message: 'Usuario eliminado correctamente' });
+  });
+});
+
+// Actualizar rol de usuario (por si quieres ascender a alguien a admin)
+app.put('/api/usuarios/:id/rol', (req, res) => {
+  const { id } = req.params;
+  const { rol } = req.body; // 'admin' o 'user'
+
+  if (!['admin', 'user'].includes(rol)) {
+    return res.status(400).json({ error: 'Rol no válido' });
+  }
+
+  db.run('UPDATE usuarios SET rol = ? WHERE id = ?', [rol, id], function(err) {
+    if (err) return res.status(500).json({ error: 'Error al actualizar rol' });
+    res.json({ success: true });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor listo en http://localhost:${PORT}`);
