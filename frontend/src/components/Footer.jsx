@@ -6,35 +6,31 @@ const linkedinURL = import.meta.env.VITE_LINKEDIN_URL;
 const instagramURL = import.meta.env.VITE_INSTAGRAM_URL;
 const youtubeURL = import.meta.env.VITE_YOUTUBE_URL;
 
-
-
 const Footer = () => {
   return (
     <footer className="bg-neutral-900 text-neutral-300 py-10 rounded-lg">
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-6 px-6">
-        
         {/* Navigation Links with Icons */}
         <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            About
+            Inicio
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            Blog
+            Categorias
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            Jobs
+            Ofertas
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            Press
+            Novedades
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            Accessibility
+            Soporte
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
-            Partners
+            Mis pedidos
           </a>
         </nav>
-        
         {/* Social Media Icons */}
         <div className="flex gap-6 text-neutral-400">
           <a target="_blank" href={whatsappURL} className="hover:text-white">
@@ -53,11 +49,10 @@ const Footer = () => {
             <FaYoutube className="h-5 w-5" />
           </a>
         </div>
-        
         {/* Copyright */}
         <p className="flex items-center gap-1 text-sm text-neutral-500">
           <FaRegCopyright className="h-4 w-4" />
-           2025 InvenFact Pro. Todos los derechos reservados.
+           2026 InvenFact Pro. Todos los derechos reservados.
         </p>
       </div>
     </footer>

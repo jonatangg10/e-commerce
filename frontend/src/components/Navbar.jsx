@@ -80,7 +80,8 @@ function Navbar() {
           path: `/categorias/${cat.toLowerCase()}`,
         })),
     },
-    { name: "Ofertas", path: "/ofertas", highlight: true },
+    { name: "Ofertas", path: "/ofertas" },
+    // { name: "Ofertas", path: "/ofertas", highlight: true },
     {
       name: "Novedades",
       dropdown: [
