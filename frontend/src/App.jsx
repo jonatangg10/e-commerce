@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Producto from './components/Producto';
 import Navbar from './components/Navbar';
 import Modal from './components/Modal';
+import Contact from './components/Contacto';
 import Footer from './components/Footer';
 import './App.css';
 import { Toaster } from 'react-hot-toast';
@@ -63,19 +64,15 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar onAbrirCarrito={() => setCarritoVisible(true)} />
-      <ImageCarousel />
-      
-      <div className="container mx-auto px-4 py-8">
-        <div className="pt-10">
-          <Toaster position="bottom-right" />
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Productos Destacados</h1>
-
-          <Filtros 
-            categorias={categorias}
-            categoriaSeleccionada={categoriaSeleccionada}
-            onCambiarCategoria={setCategoriaSeleccionada}
-          />
-
+      <ImageCarousel />    
+      <div className="container mx-auto px-4 pt-10">
+        <Toaster position="bottom-right" />
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">Productos Destacados</h1>
+        <Filtros 
+          categorias={categorias}
+          categoriaSeleccionada={categoriaSeleccionada}
+          onCambiarCategoria={setCategoriaSeleccionada}
+        />
           {loadingLocal ? (
             <div className="flex justify-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
@@ -128,13 +125,11 @@ function App() {
               )}
             </>
           )}
-        </div>
       </div>
-
       <Modal isOpen={carritoVisible} onClose={() => setCarritoVisible(false)} title="🛒 Tu Carrito">
         <Carrito />
       </Modal>
-
+      <Contact />
       <Footer />
     </div>
   );
