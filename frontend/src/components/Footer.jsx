@@ -1,10 +1,8 @@
 import { FaWhatsapp, FaGithub, FaLinkedin, FaRegCopyright, FaInstagram, FaYoutube } from "react-icons/fa6";
 
-const whatsappURL = import.meta.env.VITE_WHATSAPP_URL;
 const githubURL = import.meta.env.VITE_GITHUB_URL;
 const linkedinURL = import.meta.env.VITE_LINKEDIN_URL;
 const instagramURL = import.meta.env.VITE_INSTAGRAM_URL;
-const youtubeURL = import.meta.env.VITE_YOUTUBE_URL;
 
 const Footer = () => {
   return (
@@ -33,9 +31,6 @@ const Footer = () => {
         </nav>
         {/* Social Media Icons */}
         <div className="flex gap-6 text-neutral-400">
-          <a target="_blank" href={whatsappURL} className="hover:text-white">
-            <FaWhatsapp className="h-5 w-5" />
-          </a>
           <a target="_blank" href={githubURL} className="hover:text-white">
             <FaGithub className="h-5 w-5" />
           </a>
@@ -44,9 +39,6 @@ const Footer = () => {
           </a>
           <a target="_blank" href={instagramURL} className="hover:text-white">
             <FaInstagram className="h-5 w-5" />
-          </a>
-          <a target="_blank" href={youtubeURL} className="hover:text-white">
-            <FaYoutube className="h-5 w-5" />
           </a>
         </div>
         {/* Copyright */}
