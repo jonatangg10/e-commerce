@@ -43,14 +43,50 @@ db.serialize(() => {
       });
     }
 
-  db.get('SELECT COUNT(*) as count FROM usuarios', (err, row) => {
-    if (row.count === 0) {
-      db.run(
-        `INSERT INTO usuarios (nombres, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)`,
-        ['Jonatan Stiven', 'Gutierrez Nieto', 'admin@admin.com', 'admin123', 'admin']
-      );
-    }
-  });
+    db.get('SELECT COUNT(*) as count FROM usuarios', (err, row) => {
+      if (err) {
+        console.error("Error al verificar usuarios:", err);
+        return;
+      }
+    
+      if (row.count === 0) {
+        const usuariosIniciales = [
+          {
+            nombres: 'Jonatan Stiven',
+            apellidos: 'Gutierrez Nieto',
+            correo: 'jonatan@invenfact.com',
+            password: 'jonatan123',
+            rol: 'admin'
+          },
+          {
+            nombres: 'Juliana Alexandra',
+            apellidos: 'Muñoz Ramirez',
+            correo: 'juliana@invenfact.com',
+            password: 'juliana123',
+            rol: 'user'
+          },
+          {
+            nombres: 'Diana Toquica',
+            apellidos: 'Invitado',
+            correo: 'diana@invenfact.com',
+            password: 'diana123',
+            rol: 'user'
+          }
+        ];
+      
+        const stmt = db.prepare(`INSERT INTO usuarios (nombres, apellidos, correo, password, rol) VALUES (?, ?, ?, ?, ?)`);
+      
+        usuariosIniciales.forEach(u => {
+          stmt.run([u.nombres, u.apellidos, u.correo, u.password, u.rol], (err) => {
+            if (err) console.error(`Error insertando a ${u.correo}:`, err);
+          });
+        });
+      
+        stmt.finalize(() => {
+          console.log("Usuarios iniciales cargados desde el array.");
+        });
+      }
+    });
 
     // 3. Crear tabla productos después que estado existe
     db.run(`CREATE TABLE IF NOT EXISTS productos (
@@ -89,29 +125,23 @@ db.serialize(() => {
             ['Poster Tipografía', 1, 12.99, '/images/sql.jpg', 30, 'Nuevo', 'Diseño Gráfico'],
             ['Mousepad Figma', 1, 19.99, '/images/react.jpeg', 15, '', 'Diseño UI/UX'],
             ['Taza Adobe XD', 1, 14.50, '/images/Taza JavaScript.jpeg', 20, 'Nuevo', 'Diseño UI/UX'],
-            ['Kit Arduino', 1, 49.99, '/images/Gorra Node.jpg', 10, '-15%', 'Electrónica'],
-            ['Llavero Raspberry', 1, 7.99, '/images/CSS.jpeg', 35, '', 'Electrónica'],
             ['Camiseta CSS', 1, 24.99, '/images/camisacss.jpg', 18, 'Nuevo', 'Frontend'],
             ['Camiseta TensorFlow', 1, 32.99, '/images/php.jpg', 12, '-20%', 'Inteligencia Artificial'],
             ['Gorra ChatGPT', 1, 25.99, '/images/gorrachatgpt.jpg', 15, '', 'Inteligencia Artificial'],
-            ['Kit IoT Starter', 1, 59.99, '/images/react.jpeg', 8, 'Oferta', 'IoT'],
-            ['Sticker Smart Home', 1, 4.50, '/images/CSS.jpeg', 30, 'Nuevo', 'IoT'],
             ['Taza GPT-4', 1, 18.99, '/images/Taza JavaScript.jpeg', 18, '', 'LLMs'],
             ['Camiseta Bard', 1, 29.99, '/images/Gorra Node.jpg', 10, 'Nuevo', 'LLMs'],
             ['Libro ML', 1, 22.99, '/images/php.jpg', 12, '-15%', 'Machine Learning'],
             ['Sticker Scikit', 1, 3.75, '/images/sql.jpg', 35, '', 'Machine Learning'],
             ['Camiseta Kubernetes', 1, 31.99, '/images/camisakubernetes.png', 10, '-20%', 'Orquestación'],
             ['Gorra Docker Swarm', 1, 23.99, '/images/gorradocker.jpg', 12, '', 'Contenedores'],
-            ['Kit Post-it', 1, 8.99, '/images/CSS.jpeg', 35, 'Nuevo', 'Productividad'],
-            ['Libreta Premium', 1, 14.99, '/images/Taza JavaScript.jpeg', 20, '', 'Productividad'],
             ['Taza "Hello World"', 1, 11.99, '/images/Gorra Node.jpg', 30, 'Oferta', 'Programación'],
             ['Camiseta Código', 1, 26.99, '/images/php.jpg', 18, 'Nuevo', 'Programación'],
             ['Camiseta TCP/IP', 1, 28.99, '/images/CSS.jpeg', 12, '-15%', 'Redes'],
-            ['Taza Firewall', 1, 16.99, '/images/Taza JavaScript.jpeg', 20, '', 'Redes'],
-            ['Taza Cloud', 1, 15.99, '/images/sql.jpg', 25, '', 'Servicios Cloud'],
+            ['Taza Firewall', 1, 16.99, '/images/tazafirewall.jpg', 20, '', 'Redes'],
+            ['Taza Cloud', 1, 15.99, '/images/tazacloud.jpg', 25, '', 'Servicios Cloud'],
             ['Gorra Serverless', 1, 22.99, '/images/gorraserverless.jpg', 15, 'Nuevo', 'Servicios Cloud'],
             ['Camiseta NGINX', 1, 27.99, '/images/camisanginex.jpg', 12, '-10%', 'Servidores'],
-            ['Sticker Apache', 1, 3.50, '/images/stickerapache.png', 40, '', 'Servidores']
+            ['Sticker Apache', 1, 3.50, '/images/stikerapache.png', 40, '', 'Servidores']
           ];
 
           productosEjemplo.forEach(p => {
@@ -156,7 +186,7 @@ app.put('/api/productos/:id/stock', (req, res) => {
   );
 });
 
-// ✅ Endpoint para obtener todos los estados
+// Endpoint para obtener todos los estados
 app.get('/api/estados', (req, res) => {
   db.all('SELECT id, nombre FROM estado', (err, rows) => {
     if (err) {

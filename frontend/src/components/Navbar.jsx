@@ -35,7 +35,7 @@ function Navbar() {
   const userMenuRef = useRef(null);
   const totalItems = carrito.reduce((t, i) => t + i.cantidad, 0);
 
-  const isAdmin = usuario?.correo === "admin@admin.com";
+  const isAdmin = usuario?.rol === "admin";
 
   const handleMouseEnter = (menuName) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

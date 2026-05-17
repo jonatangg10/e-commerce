@@ -19,18 +19,16 @@ function App() {
     carritoVisible,
     setCarritoVisible,
     agregarAlCarrito,
-    obtenerProductosPaginados, // Usaremos esta función
+    obtenerProductosPaginados,
     error,
   } = useContext(CarritoContext);
 
-  // --- ESTADOS PARA PAGINACIÓN ---
   const [productosPaginados, setProductosPaginados] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
   const [totalProductos, setTotalProductos] = useState(0);
   const [loadingLocal, setLoadingLocal] = useState(true);
   const PAGE_SIZE = 12;
 
-  // Lógica para cargar productos cuando cambie la página o categoría
   useEffect(() => {
     const cargarDatos = async () => {
       setLoadingLocal(true);
@@ -42,15 +40,14 @@ function App() {
         categoria: filtro
       });
 
-      setProductosPaginados(res.productos);
-      setTotalProductos(res.total);
+      setProductosPaginados(res.productos || []);
+      setTotalProductos(res.total || 0);
       setLoadingLocal(false);
     };
 
     cargarDatos();
   }, [paginaActual, categoriaSeleccionada, obtenerProductosPaginados]);
 
-  // Resetear a página 1 si el usuario cambia de categoría
   useEffect(() => {
     setPaginaActual(1);
   }, [categoriaSeleccionada]);
@@ -85,7 +82,6 @@ function App() {
             </div>
           ) : (
             <>
-              {/* GRID DE PRODUCTOS (Máximo 20) */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {productosPaginados.map(prod => (
                   <Producto 
@@ -96,28 +92,38 @@ function App() {
                 ))}
               </div>
 
-              {/* CONTROLES DE PAGINACIÓN */}
+              {/* CONTROLES DE PAGINACIÓN ESTILO ADMIN (IGUAL A LA IMAGEN) */}
               {totalPaginas > 1 && (
-                <div className="mt-12 flex justify-center items-center gap-3 pb-10">
-                  <button
-                    onClick={() => setPaginaActual(p => Math.max(1, p - 1))}
-                    disabled={paginaActual === 1}
-                    className="p-2 rounded-lg border border-gray-200 hover:bg-blue-50 disabled:opacity-30 transition-all"
-                  >
-                    <ChevronLeftIcon className="h-5 w-5 text-blue-600" />
-                  </button>
+                <div className="mt-12 mb-10 flex items-center justify-between border-t border-gray-200 pt-6">
+                  <div className="text-sm text-gray-600 font-medium">
+                    Página <span className="text-gray-900">{paginaActual}</span> de <span className="text-gray-900">{totalPaginas}</span>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        setPaginaActual(p => Math.max(1, p - 1));
+                        window.scrollTo({ top: 500, behavior: 'smooth' });
+                      }}
+                      disabled={paginaActual === 1}
+                      className="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all"
+                    >
+                      <ChevronLeftIcon className="h-4 w-4 mr-1" />
+                      Anterior
+                    </button>
 
-                  <span className="text-sm font-semibold text-gray-700">
-                    Página {paginaActual} de {totalPaginas}
-                  </span>
-
-                  <button
-                    onClick={() => setPaginaActual(p => Math.min(totalPaginas, p + 1))}
-                    disabled={paginaActual === totalPaginas}
-                    className="p-2 rounded-lg border border-gray-200 hover:bg-blue-50 disabled:opacity-30 transition-all"
-                  >
-                    <ChevronRightIcon className="h-5 w-5 text-blue-600" />
-                  </button>
+                    <button
+                      onClick={() => {
+                        setPaginaActual(p => Math.min(totalPaginas, p + 1));
+                        window.scrollTo({ top: 500, behavior: 'smooth' });
+                      }}
+                      disabled={paginaActual === totalPaginas}
+                      className="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all"
+                    >
+                      Siguiente
+                      <ChevronRightIcon className="h-4 w-4 ml-1" />
+                    </button>
+                  </div>
                 </div>
               )}
             </>
@@ -125,7 +131,7 @@ function App() {
         </div>
       </div>
 
-      <Modal isOpen={carritoVisible} onClose={() => setCarritoVisible(false)}>
+      <Modal isOpen={carritoVisible} onClose={() => setCarritoVisible(false)} title="🛒 Tu Carrito">
         <Carrito />
       </Modal>
 
