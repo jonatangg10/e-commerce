@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Producto from './components/Producto';
 import Navbar from './components/Navbar';
 import Modal from './components/Modal';
+import LogoCarousel from './components/LogoCarousel';
 import Contact from './components/Contacto';
 import Footer from './components/Footer';
 import './App.css';
@@ -60,7 +61,6 @@ function App() {
       <div className="text-red-500 text-lg">{error}</div>
     </div>
   );
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar onAbrirCarrito={() => setCarritoVisible(true)} />
@@ -88,14 +88,12 @@ function App() {
                   />
                 ))}
               </div>
-
               {/* CONTROLES DE PAGINACIÓN ESTILO ADMIN (IGUAL A LA IMAGEN) */}
               {totalPaginas > 1 && (
                 <div className="mt-12 mb-10 flex items-center justify-between border-t border-gray-200 pt-6">
                   <div className="text-sm text-gray-600 font-medium">
                     Página <span className="text-gray-900">{paginaActual}</span> de <span className="text-gray-900">{totalPaginas}</span>
-                  </div>
-                  
+                  </div>                 
                   <div className="flex gap-2">
                     <button
                       onClick={() => {
@@ -108,7 +106,6 @@ function App() {
                       <ChevronLeftIcon className="h-4 w-4 mr-1" />
                       Anterior
                     </button>
-
                     <button
                       onClick={() => {
                         setPaginaActual(p => Math.min(totalPaginas, p + 1));
@@ -129,6 +126,7 @@ function App() {
       <Modal isOpen={carritoVisible} onClose={() => setCarritoVisible(false)} title="🛒 Tu Carrito">
         <Carrito />
       </Modal>
+      <LogoCarousel />
       <Contact />
       <Footer />
     </div>

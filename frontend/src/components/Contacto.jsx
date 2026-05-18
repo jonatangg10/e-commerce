@@ -1,6 +1,6 @@
 function Contact() {
   return (
-    <section id="contacto" className="w-full pt-2 pb-10">   
+    <section id="contacto" className="w-full pt-8 pb-10">   
       <div className="container mx-auto px-4"> 
         <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">   
           <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
