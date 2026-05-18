@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function ImageCarousel() {
   return (
-    <div className="w-full shadow-xl">
+    <div id="inicio" className="w-full shadow-xl">
       <Carousel 
         showThumbs={false}
         autoPlay

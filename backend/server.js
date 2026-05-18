@@ -59,13 +59,6 @@ db.serialize(() => {
             rol: 'admin'
           },
           {
-            nombres: 'Juliana Alexandra',
-            apellidos: 'Muñoz Ramirez',
-            correo: 'juliana@invenfact.com',
-            password: 'juliana123',
-            rol: 'user'
-          },
-          {
             nombres: 'Diana Toquica',
             apellidos: 'Invitado',
             correo: 'diana@invenfact.com',

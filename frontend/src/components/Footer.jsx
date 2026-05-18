@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-6 px-6">
         {/* Navigation Links with Icons */}
         <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium">
-          <a href="#" className="flex items-center gap-1 hover:text-white">
+          <a href="#inicio" className="flex items-center gap-1 hover:text-white">
             Inicio
           </a>
           <a href="#" className="flex items-center gap-1 hover:text-white">
