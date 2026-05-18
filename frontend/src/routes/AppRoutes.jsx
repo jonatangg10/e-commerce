@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import App from "../App";
 import DetalleProducto from "../components/DetalleProducto";
+import Dashboard from "../pages/Dashboard";
 import Admin from "../pages/Admin";
 import AdminUsers from "../pages/AdminUsers";
 import Login from "../pages/Login";
@@ -13,8 +14,17 @@ const AppRoutes = () => {
       <Route path="/" element={<App />} />
       <Route path="/producto/:id" element={<DetalleProducto />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={<Dashboard />} />
 
       {/* Rutas Protegidas (Solo Admin) */}
+      {/* <Route
+        path="/admin"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      /> */}
       <Route
         path="/admin-productos"
         element={
