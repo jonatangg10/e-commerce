@@ -269,7 +269,19 @@ function Navbar() {
                     </div>
 
                     {isAdmin && (
-                      <>
+                      <div className="border-t border-gray-100 mt-2 pt-2">
+                        <p className="px-4 pb-2 text-[10px] uppercase font-bold tracking-wider text-gray-400">
+                          Administración
+                        </p>
+                                        
+                        <Link
+                          to="/admin"
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                          <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" />
+                          Panel Administrativo
+                        </Link>
+                                        
                         <Link
                           to="/admin-productos"
                           className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -277,7 +289,7 @@ function Navbar() {
                           <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" />
                           Administrar Productos
                         </Link>
-
+                                        
                         <Link
                           to="/admin-users"
                           className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
@@ -285,7 +297,7 @@ function Navbar() {
                           <WrenchScrewdriverIcon className="h-4 w-4 mr-3 text-gray-400" />
                           Administrar Usuarios
                         </Link>
-                      </>
+                      </div>
                     )}
 
                     <button

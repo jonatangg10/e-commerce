@@ -1,29 +1,37 @@
 import { useContext, useMemo, useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { UserContext } from "../context/UserContext"; // Cambiado a UserContext
-import { CarritoContext } from "../context/CarritoContext"; // Solo para el carrito modal
-import Modal from "../components/Modal";
-import Carrito from "../components/Carrito";
-import { PencilIcon, TrashIcon, PlusIcon, UserIcon } from "@heroicons/react/24/outline";
+
+import AdminLayout from "../components/AdminLayout";
+
+import { UserContext } from "../context/UserContext";
+
+import {
+  PencilIcon,
+  TrashIcon,
+  PlusIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
+
 import {
   useReactTable,
   getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
-  getPaginationRowModel,
   flexRender,
 } from "@tanstack/react-table";
 
 const AdminUsers = () => {
-  // Consumimos el contexto de usuarios
-  const { obtenerUsuariosPaginados, eliminarUsuario, loadingUsers } = useContext(UserContext);
-  const { carritoVisible, setCarritoVisible } = useContext(CarritoContext);
+  const {
+    obtenerUsuariosPaginados,
+    eliminarUsuario,
+    loadingUsers,
+  } = useContext(UserContext);
 
   const [globalFilter, setGlobalFilter] = useState("");
+
   const [usuarioEditando, setUsuarioEditando] = useState(null);
+
   const [usuariosPaginados, setUsuariosPaginados] = useState([]);
+
   const [totalUsuarios, setTotalUsuarios] = useState(0);
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -35,6 +43,7 @@ const AdminUsers = () => {
       pageSize: pagination.pageSize,
       search: globalFilter,
     });
+
     setUsuariosPaginados(usuarios);
     setTotalUsuarios(total);
   };
@@ -46,50 +55,76 @@ const AdminUsers = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar este usuario?")) {
       const exito = await eliminarUsuario(id);
-      if (exito) cargarUsuarios(); // Recargar la lista
+
+      if (exito) {
+        cargarUsuarios();
+      }
     }
   };
 
   const columns = useMemo(
     () => [
-      { accessorKey: "id", header: "ID" },
-      { 
-        accessorKey: "nombres", 
+      {
+        accessorKey: "id",
+        header: "ID",
+      },
+
+      {
+        accessorKey: "nombres",
         header: "Nombre Completo",
-        cell: ({ row }) => `${row.original.nombres} ${row.original.apellidos}`
+
+        cell: ({ row }) =>
+          `${row.original.nombres} ${row.original.apellidos}`,
       },
-      { accessorKey: "correo", header: "Email" },
-      { 
-        accessorKey: "rol", 
+
+      {
+        accessorKey: "correo",
+        header: "Email",
+      },
+
+      {
+        accessorKey: "rol",
         header: "Rol",
+
         cell: ({ getValue }) => (
-          <span className={`px-2 py-1 rounded-full text-xs font-bold ${
-            getValue() === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'
-          }`}>
-            {getValue().toUpperCase()}
+          <span
+            className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider
+              ${
+                getValue() === "admin"
+                  ? "bg-purple-100 text-purple-700"
+                  : "bg-blue-100 text-blue-700"
+              }`}
+          >
+            {getValue()}
           </span>
-        )
+        ),
       },
-      { 
-        accessorKey: "fecha_creacion", 
+
+      {
+        accessorKey: "fecha_creacion",
         header: "Registro",
-        cell: ({ getValue }) => new Date(getValue()).toLocaleDateString() 
+
+        cell: ({ getValue }) =>
+          new Date(getValue()).toLocaleDateString(),
       },
+
       {
         id: "acciones",
         header: "Acciones",
+
         cell: ({ row }) => (
-          <div className="flex space-x-3">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setUsuarioEditando(row.original)}
-              className="text-blue-600 hover:text-blue-800"
-              title="Editar Rol"
+              className="text-blue-600 hover:text-blue-800 transition-colors"
+              title="Editar"
             >
               <PencilIcon className="h-5 w-5" />
             </button>
+
             <button
               onClick={() => handleEliminar(row.original.id)}
-              className="text-red-600 hover:text-red-800"
+              className="text-red-600 hover:text-red-800 transition-colors"
               title="Eliminar"
             >
               <TrashIcon className="h-5 w-5" />
@@ -103,74 +138,111 @@ const AdminUsers = () => {
 
   const table = useReactTable({
     data: usuariosPaginados,
+
     columns,
-    state: { pagination },
+
+    state: {
+      pagination,
+    },
+
     onPaginationChange: setPagination,
+
     getCoreRowModel: getCoreRowModel(),
+
     manualPagination: true,
+
     pageCount: Math.ceil(totalUsuarios / pagination.pageSize),
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar onAbrirCarrito={() => setCarritoVisible(true)} />
+    <AdminLayout activeTab="usuarios">
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+              <UserIcon className="h-8 w-8 text-blue-600" />
+              Gestión de Usuarios
+            </h1>
 
-      <main className="flex-grow container mx-auto px-4 pt-28 pb-12">
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8 border-t-4 border-blue-600">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                <UserIcon className="h-7 w-7 text-blue-600" />
-                Gestión de Usuarios
-              </h2>
-              <p className="text-gray-500 text-sm">Administra los accesos y roles de la plataforma</p>
-            </div>
-
-            <button
-              onClick={() => setUsuarioEditando({})}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 transition-colors"
-            >
-              <PlusIcon className="h-5 w-5" />
-              Nuevo Usuario
-            </button>
+            <p className="text-slate-500 mt-2 font-medium">
+              Administra los accesos y roles de la plataforma.
+            </p>
           </div>
 
-          {/* Buscador */}
-          <div className="mb-6">
+          <button
+            onClick={() => setUsuarioEditando({})}
+            className="flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl text-sm font-bold transition-all shadow-lg shadow-blue-600/20"
+          >
+            <PlusIcon className="h-5 w-5" />
+            Nuevo Usuario
+          </button>
+        </div>
+
+        {/* Card */}
+        <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
+          {/* Search */}
+          <div className="p-6 border-b border-slate-100">
             <input
               type="text"
               placeholder="Buscar por nombre o correo..."
               value={globalFilter}
               onChange={(e) => {
                 setGlobalFilter(e.target.value);
-                setPagination(prev => ({ ...prev, pageIndex: 0 }));
+
+                setPagination((prev) => ({
+                  ...prev,
+                  pageIndex: 0,
+                }));
               }}
-              className="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-96 focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full md:w-96 bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/5 transition-all"
             />
           </div>
 
+          {/* Table */}
           <div className="overflow-x-auto">
             {loadingUsers ? (
-              <div className="py-10 text-center text-gray-500 italic">Cargando usuarios...</div>
+              <div className="py-16 text-center text-slate-500 font-medium">
+                Cargando usuarios...
+              </div>
             ) : (
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="w-full text-left">
+                <thead>
                   {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
+                    <tr
+                      key={headerGroup.id}
+                      className="bg-slate-50 border-b border-slate-100"
+                    >
                       {headerGroup.headers.map((header) => (
-                        <th key={header.id} className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">
-                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        <th
+                          key={header.id}
+                          className="px-6 py-4 text-[11px] font-extrabold uppercase tracking-wider text-slate-400"
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                         </th>
                       ))}
                     </tr>
                   ))}
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+
+                <tbody className="divide-y divide-slate-100">
                   {table.getRowModel().rows.map((row) => (
-                    <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={row.id}
+                      className="hover:bg-slate-50 transition-colors"
+                    >
                       {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className="px-6 py-4 text-sm text-gray-700">
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        <td
+                          key={cell.id}
+                          className="px-6 py-4 text-sm text-slate-700 font-medium"
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
                         </td>
                       ))}
                     </tr>
@@ -180,41 +252,33 @@ const AdminUsers = () => {
             )}
           </div>
 
-          {/* Paginación */}
-          <div className="flex items-center justify-between mt-6 border-t pt-4">
-            <div className="text-sm text-gray-600">
+          {/* Pagination */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-6 border-t border-slate-100">
+            <div className="text-sm text-slate-500 font-medium">
               Mostrando {usuariosPaginados.length} de {totalUsuarios} usuarios
             </div>
-            <div className="flex gap-2">
+
+            <div className="flex gap-3">
               <button
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
-                className="px-4 py-2 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 disabled:opacity-50 transition-all"
+                className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 disabled:opacity-50 transition-all"
               >
                 Anterior
               </button>
+
               <button
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
-                className="px-4 py-2 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 disabled:opacity-50 transition-all"
+                className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 disabled:opacity-50 transition-all"
               >
                 Siguiente
               </button>
             </div>
           </div>
         </div>
-      </main>
-
-      <Footer />
-
-      <Modal
-        isOpen={carritoVisible}
-        onClose={() => setCarritoVisible(false)}
-        title="🛒 Tu Carrito"
-      >
-        <Carrito />
-      </Modal>
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 

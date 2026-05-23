@@ -14,17 +14,17 @@ const AppRoutes = () => {
       <Route path="/" element={<App />} />
       <Route path="/producto/:id" element={<DetalleProducto />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={<Dashboard />} />
+      {/* <Route path="/admin" element={<Dashboard />} /> */}
 
       {/* Rutas Protegidas (Solo Admin) */}
-      {/* <Route
+      <Route
         path="/admin"
         element={
           <PrivateRoute>
             <Dashboard />
           </PrivateRoute>
         }
-      /> */}
+      />
       <Route
         path="/admin-productos"
         element={
