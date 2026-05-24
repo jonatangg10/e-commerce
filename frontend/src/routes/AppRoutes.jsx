@@ -10,11 +10,9 @@ import PrivateRoute from "./PrivateRoute";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Rutas Públicas */}
       <Route path="/" element={<App />} />
       <Route path="/producto/:id" element={<DetalleProducto />} />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/admin" element={<Dashboard />} /> */}
 
       {/* Rutas Protegidas (Solo Admin) */}
       <Route

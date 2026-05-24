@@ -18,6 +18,7 @@ import {
 } from "@tanstack/react-table";
 
 const AdminProductos = () => {
+  
   const {
     obtenerProductosPaginados,
     loading,

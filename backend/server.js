@@ -304,40 +304,37 @@ app.get('/api/productos/paginados', (req, res) => {
 
 app.post('/api/login', (req, res) => {
   const { correo, password } = req.body;
-
   console.log('Intentando login con:', correo, password);
-
-db.get(
-  'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
-  [correo, password],
-  (err, user) => {
-    if (err) {
-      console.log('Error en la consulta:', err);
-      return res.status(500).json({ error: 'Error en el servidor' });
-    }
-
-    console.log('Usuario encontrado en callback:', user);
-
-    if (!user) {
-      return res.status(401).json({ error: 'Credenciales incorrectas' });
-    }
-
-    console.log(`Login exitoso: ${user.nombres} ${user.apellidos}`);
-
-    res.json({
-      success: true,
-      usuario: {
-        id: user.id,
-        nombres: user.nombres,
-        apellidos: user.apellidos,
-        correo: user.correo,
-        rol: user.rol,
-        fecha_creacion: user.fecha_creacion
+  db.get(
+    'SELECT * FROM usuarios WHERE correo = ? AND password = ?',
+    [correo, password],
+    (err, user) => {
+      if (err) {
+        console.log('Error en la consulta:', err);
+        return res.status(500).json({ error: 'Error en el servidor' });
       }
-    });
-  }
-);
 
+      console.log('Usuario encontrado en callback:', user);
+
+      if (!user) {
+        return res.status(401).json({ error: 'Credenciales incorrectas' });
+      }
+
+      console.log(`Login exitoso: ${user.nombres} ${user.apellidos}`);
+
+      res.json({
+        success: true,
+        usuario: {
+          id: user.id,
+          nombres: user.nombres,
+          apellidos: user.apellidos,
+          correo: user.correo,
+          rol: user.rol,
+          fecha_creacion: user.fecha_creacion
+        }
+      });
+    }
+  );
 });
 
 app.get('/api/usuarios', (req, res) => {
@@ -408,7 +405,7 @@ app.delete('/api/usuarios/:id', (req, res) => {
   });
 });
 
-// Actualizar rol de usuario (por si quieres ascender a alguien a admin)
+// Actualizar rol de usuario
 app.put('/api/usuarios/:id/rol', (req, res) => {
   const { id } = req.params;
   const { rol } = req.body; // 'admin' o 'user'
